@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Pokemon Stats Search -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!--search area based on template from colorlib.com-->
+    <meta name="Yangxin&Zhong" content="colorlib.com">
+    <!-- get bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- embbed font: Roboto -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
+    <link href="css/main.css" rel="stylesheet" />
+    <!-- get jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title> Pokemon Stats Search - Lab1</title>
+  </head>
+  <body>
+    <header>
+      <!-- Navbar: modified from bootstrap sample code  -->
+      <nav class="navbar navbar-light bg-light fixed-top">
+        <a class="navbar-brand" href="#">
+          <img src="images/logo.png" width="auto" height="30" class="d-inline-block align-top" alt="Pokemon logo">
+            Pokemon Stat Search
+        </a>
+        <span class="navbar-text">
+            Lab 1
+          </span>
+      </nav>
+    </header>
+    <!-- Search area  -->
+    <div class="s003 parallax">
+      <form onSubmit="return false;">
+        <legend>Which Pokemon is Your Favorite?</legend>
+        <!-- Input search -->
+        <div class="inner-form">
+            <div class="input-field second-wrap">
+              <input id="search" type="text" placeholder='Try "Pikachu"' />
+            </div>  
+            <div class="input-field third-wrap">
+              <!-- Search button: submit to function getpokename() -->
+              <button class="btn-search" id="ready" type="button" onclick="getpokename();scrollSmoothToBottom();">
+                <svg class="svg-inline--fa fa-search fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                  <path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path>
+                </svg>
+              </button>
+            </div>
+        </div>
+      </form>
+    </div>
+    <!-- Display search results: pokemon stats:
+      speed, special defense, special attack, defense, attack, hp --> 
+    <div id="para3" class="container">
+        <h4 class="result_title" id="pokemonname"> Here are the stats for ___</h4>
+        <div id="search-container" class="row">
+           <!-- <div class="col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                <div class="card margin ">
+                    <div><img src="images/stats1.png" class="img1", alt="Speed icon"></div>
+                    <h5 class="card-title text-muted"> Speed </h5>
+                    <p class="card-text stats color1">80</p>
+                    
+                    
+                    
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                <div class="card margin">
+                    <div><img src="images/stats2.png" class="img1", alt="Special defense icon"></div>
+                    <h5 class="card-title text-muted"> Special defense </h5>
+                    <p class="card-text stats color2">80</p>
+                    
+                    
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                <div class="card margin">
+                    <div><img src="images/stats3.png" class="img1", alt="Special attack icon"></div>
+                    <h5 class="card-title text-muted">Special attack </h5>
+                    
+                    <p class="card-text stats color3">80</p>
+                    
+                    
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                <div class="card margin">
+                    <div><img src="images/stats4.png" class="img1", alt="Defense icon"></div>
+                    <h5 class="card-title text-muted"> Defense</h5>
+                    <p class="card-text stats color4">80</p>
+                    
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                <div class="card margin">
+                    <div><img src="images/stats5.png" class="img1", alt="Attack"></div>
+                    <h5 class="card-title text-muted"> Attack</h5>
+                    <p class="card-text stats color5">80</p>
+                    
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-6">
+                <div class="card margin">
+                    <div><img src="images/stats6.png" class="img1", alt="Hp icon"></div>
+                    <h5 class="card-title text-muted"> Hp </h5>
+                    <p class="card-text stats color6">80</p>
+                    
+                </div>
+            </div> -->
+            
+        </div>
+    </div>
+    
+                    
+    <script>
+      //initialize
+      $(document).ready(function() {
+        initialSetup();
+    });
+    //hide result if not search
+      function initialSetup(){
+          $('#para3').hide();
+         
+      }
+      
+     
+     //get seartch input
+      function getpokename(){
+       
+        var input = document.getElementById("search").value;
+        $('#search-container').html("");
+        useApi(input);
+      }
+      // scroll down animation
+      scrollingElement = (document.scrollingElement || document.body)
+      function scrollSmoothToBottom () {
+        $(scrollingElement).animate({
+         scrollTop: document.body.scrollHeight
+            }, 600);
+         }
+
+      //call Pokemon Api for Pokemon stats
+      function useApi(item){
+        var requests = new XMLHttpRequest();
+        var address = "https://pokeapi.co/api/v2/pokemon/";
+        var requestaddress = address.concat(item.toLowerCase());
+        //console.log(requestaddress);
+        console.log(requestaddress);
+        //using GET method
+        requests.open('GET',requestaddress);
+        requests.send();
+        var statsarray;
+        var listone=[];
+        //requests.setRequestHeader('Content-Type','application/json');
+        requests.onload = function(e){
+          console.log("yes")
+          //Check return type and content
+          if(requests.readyState === 4 ){
+              //console.log("4")
+            if(requests.status === 200){
+              console.log(requests.responseText);
+              //parse the results
+              var response = JSON.parse(requests.responseText);
+              console.log(response.stats);
+              statsarray = response.stats;
+              //Append stats to a list
+              for (var i=0;i<6;i++) {
+                listone.push(statsarray[i].base_stat);
+              }
+              //Write the HTML structure for displaying stats
+              $('#search-container').append("<div class='col-lg-2 col-md-4 col-sm-6 col-xs-12'><div class='card margin'><div><img src='images/stats1.png' class='img1', alt='Speed icon'></div><h5 class='card-title text-muted'> Speed</h5><p class='card-text stats color1' id='speed1'>container[0]</p></div></div>"); 
+              $('#search-container').append("<div class='col-lg-2 col-md-4 col-sm-6 col-xs-12'><div class='card margin'><div><img src='images/stats2.png' class='img1', alt='Special_Defense_icon'></div><h5 class='card-title text-muted'> Special Defense</h5><p class='card-text stats color2' id='speed2'>container[1]</p></div></div>"); 
+              $('#search-container').append("<div class='col-lg-2 col-md-4 col-sm-6 col-xs-12'><div class='card margin'><div><img src='images/stats3.png' class='img1', alt='Special_Attack_icon'></div><h5 class='card-title text-muted'> Special Attack</h5><p class='card-text stats color3' id='speed3'>container[2]</p></div></div>"); 
+              $('#search-container').append("<div class='col-lg-2 col-md-4 col-sm-6 col-xs-12'><div class='card margin'><div><img src='images/stats4.png' class='img1', alt='Defense_icon'></div><h5 class='card-title text-muted'> Defense</h5><p class='card-text stats color4' id='speed4'>container[3]</p></div></div>"); 
+              $('#search-container').append("<div class='col-lg-2 col-md-4 col-sm-6 col-xs-12'><div class='card margin'><div><img src='images/stats5.png' class='img1', alt='Attack_icon'></div><h5 class='card-title text-muted'> Attack</h5><p class='card-text stats color5' id='speed5'>container[4]</p></div></div>"); 
+              $('#search-container').append("<div class='col-lg-2 col-md-4 col-sm-6 col-xs-12'><div class='card margin'><div><img src='images/stats6.png' class='img1', alt='Hp_icon'></div><h5 class='card-title text-muted'> Hp</h5><p class='card-text stats color6' id='speed6'>container[5]</p></div></div>"); 
+	              // $('#search-container').append("<div class='col-lg-2 col-md-4 col-sm-6 col-xs-12'><div class='card'><img src='images/shield.png' class='card-img-top', alt='Pokeball' ><h3 class='card-title'> Speed</h3><p class='card-text' id='speed2'>container[1]</p></div></div>"); 
+	
+	
+	
+	              // $('#search-container').append("<div class='col-lg-2 col-md-4 col-sm-6 col-xs-12'><div class='card'><img src='images/shield.png' class='card-img-top', alt='Pokeball'><h3 class='card-title'> Speed</h3><p class='card-text' id='speed3'>Details of this attribute</p></div></div>"); 
+	
+	              // $('#search-container').append("<div class='col-lg-2 col-md-4 col-sm-6 col-xs-12'><div class='card'><img src='images/shield.png' class='card-img-top', alt='Pokeball'><h3 class='card-title'> Speed</h3><p class='card-text' id='speed4'>Details of this attribute</p></div></div>"); 
+	
+	              // $('#search-container').append("<div class='col-lg-2 col-md-4 col-sm-6 col-xs-12'><div class='card'><img src='images/shield.png' class='card-img-top', alt='Pokeball'><h3 class='card-title'> Speed</h3><p class='card-text' id='speed5'>Details of this attribute</p></div></div>"); 
+	
+	              // $('#search-container').append("<div class='col-lg-2 col-md-4 col-sm-6 col-xs-12'><div class='card'><img src='images/shield.png' class='card-img-top', alt='Pokeball'><h3 class='card-title'> Speed</h3><p class='card-text' id='speed6'>Details of this attribute</p></div></div>"); 
+              //write the stats data to HTML 
+	              document.getElementById("speed1").innerHTML=statsarray[0].base_stat;
+	              document.getElementById("speed2").innerHTML=statsarray[1].base_stat;
+	              document.getElementById("speed3").innerHTML=statsarray[2].base_stat;
+	              document.getElementById("speed4").innerHTML=statsarray[3].base_stat;
+	              document.getElementById("speed5").innerHTML=statsarray[4].base_stat;
+                document.getElementById("speed6").innerHTML=statsarray[5].base_stat;
+                document.getElementById("pokemonname").innerHTML="Here are the stats for "+item.toLowerCase();
+              // console.log(statsarray[0]);
+              // console.log(statsarray[0].base_stat);
+
+            }
+          }
+        }
+        requests.onerror=function(e){
+          console.error(requests.statusText);
+        }
+      //   console.log(listone);
+      //   writeContent(listone);
+      // }
+
+      //display results (DOM manipulation)
+      // function writeContent(container){
+      //   $('#search-container').append("<div class='col-lg-2 col-md-4 col-sm-6 col-xs-12'><div class='card'><img src='images/shield.png' class='card-img-top', alt='Pokeball'><h3 class='card-title'> Speed</h3><p class='card-text' id='speed1'>container[0]</p></div></div>"); 
+      //   $('#search-container').append("<div class='col-lg-2 col-md-4 col-sm-6 col-xs-12'><div class='card'><img src='images/shield.png' class='card-img-top', alt='Pokeball'><h3 class='card-title'> Speed</h3><p class='card-text'>container[1]</p></div></div>"); 
+      //   $('#search-container').append("<div class='col-lg-2 col-md-4 col-sm-6 col-xs-12'><div class='card'><img src='images/shield.png' class='card-img-top', alt='Pokeball'><h3 class='card-title'> Speed</h3><p class='card-text'>Details of this attribute</p></div></div>"); 
+      //   $('#search-container').append("<div class='col-lg-2 col-md-4 col-sm-6 col-xs-12'><div class='card'><img src='images/shield.png' class='card-img-top', alt='Pokeball'><h3 class='card-title'> Speed</h3><p class='card-text'>Details of this attribute</p></div></div>"); 
+      //   $('#search-container').append("<div class='col-lg-2 col-md-4 col-sm-6 col-xs-12'><div class='card'><img src='images/shield.png' class='card-img-top', alt='Pokeball'><h3 class='card-title'> Speed</h3><p class='card-text'>Details of this attribute</p></div></div>"); 
+      //   $('#search-container').append("<div class='col-lg-2 col-md-4 col-sm-6 col-xs-12'><div class='card'><img src='images/shield.png' class='card-img-top', alt='Pokeball'><h3 class='card-title'> Speed</h3><p class='card-text'>Details of this attribute</p></div></div>"); 
+
+
+
+        // document.getElementById("speed1").innerHTML=container[0];
+            // $('#search-container').append('<div class="container"><div class="row"><div class="col-lg-3 col-md-3 col-sm-6 col-xs-12><div class="card"><img src="images/pokeball.png" class="card-img-top", alt="Pokeball"> <h3 class="card-title"> <a href = "http://localhost:5000/getname/items/{{pokes}}">{{pokes}}</a> </h3><p class="card-text">Details of the pokemon:Lorem ipsum dolor sit amet consectetur adipisicing elit</p><button type="button" class="btn btn-primary">View Details</button></div></div></div></div>'); 
+        $('#para3').show();
+        // $('#para4').show();
+
+
+
+      }
+
+
+    </script>
+  </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>
